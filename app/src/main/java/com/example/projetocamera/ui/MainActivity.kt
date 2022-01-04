@@ -1,4 +1,4 @@
-package com.example.projetocamera
+package com.example.projetocamera.ui
 
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -14,11 +14,12 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getMainExecutor
+import com.example.projetocamera.Constats
+import com.example.projetocamera.R
 import com.example.projetocamera.databinding.ActivityMainBinding
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
-import androidx.camera.core.ImageCapture.OnImageSavedCallback as OnImageSavedCallback1dCallback1
 
 class MainActivity : AppCompatActivity(){
 
@@ -38,8 +39,9 @@ class MainActivity : AppCompatActivity(){
         }
         else {
             ActivityCompat.requestPermissions(
-                this,Constats.REQUIRED_PERMISSIONS,
-                Constats.REQUEST_CODE_PERMISSIONS)
+                this, Constats.REQUIRED_PERMISSIONS,
+                Constats.REQUEST_CODE_PERMISSIONS
+            )
         }
 
         binding.btnButton.setOnClickListener {
@@ -60,7 +62,8 @@ class MainActivity : AppCompatActivity(){
 
             val imageCapture = imageCapture?:return
             val photoFile = File( outputDirectory,
-                SimpleDateFormat (Constats.FILE_NAME_FORMAT,
+                SimpleDateFormat (
+                    Constats.FILE_NAME_FORMAT,
                     Locale.getDefault())
                     .format(System.currentTimeMillis())+".arquivo.jpg")
 
@@ -73,6 +76,7 @@ class MainActivity : AppCompatActivity(){
                     override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
                         val savedUri = Uri.fromFile(photoFile)
                         val msg = "Photo saved Mensagem 3" // mensagem exibida ao salvar a foto
+
                         Toast.makeText(this@MainActivity,
                             "$msg $savedUri",
                             Toast.LENGTH_LONG)
@@ -80,7 +84,7 @@ class MainActivity : AppCompatActivity(){
                     }
 
                     override fun onError(exception: ImageCaptureException) {
-                        Log.e(Constats.TAG, "onError: ${exception.message}", exception)
+                        Log.i("INFO captura de imagem", "*****************************onError: ${exception.message}", exception)
                     }
                 }
             )
