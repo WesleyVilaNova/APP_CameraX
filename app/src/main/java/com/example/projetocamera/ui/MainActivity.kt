@@ -15,6 +15,8 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getMainExecutor
 import com.example.projetocamera.Constats
+import com.example.projetocamera.Constats.REQUEST_CODE_PERMISSIONS
+import com.example.projetocamera.Constats.REQUIRED_PERMISSIONS
 import com.example.projetocamera.R
 import com.example.projetocamera.databinding.ActivityMainBinding
 import java.io.File
@@ -33,19 +35,19 @@ class MainActivity : AppCompatActivity(){
         setContentView(binding.root)
 
         outputDirectory = getOutputDirectory()
-
         if (allPermissionGranted()){
             startCamera()
         }
         else {
             ActivityCompat.requestPermissions(
-                this, Constats.REQUIRED_PERMISSIONS,
-                Constats.REQUEST_CODE_PERMISSIONS
+                this, REQUIRED_PERMISSIONS,
+                REQUEST_CODE_PERMISSIONS
             )
         }
 
         binding.btnButton.setOnClickListener {
             btn_button()
+            // Implementar nova activity ao clicar no Button
         }
     }
 
@@ -72,7 +74,6 @@ class MainActivity : AppCompatActivity(){
             imageCapture.takePicture(
                 outputFilesOption,getMainExecutor(this),
                 object : ImageCapture.OnImageSavedCallback {
-
                     override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
                         val savedUri = Uri.fromFile(photoFile)
                         val msg = "Photo saved Mensagem 3" // mensagem exibida ao salvar a foto
@@ -106,7 +107,6 @@ class MainActivity : AppCompatActivity(){
             imageCapture = ImageCapture.Builder().build()
 
                 val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
-
             try {
                 cameraProvider.unbindAll()
                     cameraProvider.bindToLifecycle(
@@ -123,10 +123,10 @@ class MainActivity : AppCompatActivity(){
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>,
-        grantResults: IntArray) {
+        grantResults: IntArray ) {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-        if (requestCode == Constats.REQUEST_CODE_PERMISSIONS)
+        if (requestCode == REQUEST_CODE_PERMISSIONS)
             if (allPermissionGranted()) {
                 startCamera() }
             else {
@@ -135,7 +135,7 @@ class MainActivity : AppCompatActivity(){
             finish()
     }
         private fun allPermissionGranted() =
-            Constats.REQUIRED_PERMISSIONS.all {
+            REQUIRED_PERMISSIONS.all {
                 ContextCompat.checkSelfPermission(
                     baseContext,it
                 ) == PackageManager.PERMISSION_GRANTED

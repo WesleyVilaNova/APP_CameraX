@@ -3,7 +3,7 @@
     package="com.example.projetocamera">
 
     <uses-feature android:name="android.hardware.camera.any" />
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
@@ -14,14 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjetoCamera">
         <activity
-            android:name=".ui.TesteActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

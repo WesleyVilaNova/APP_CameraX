@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-android-extensions'
 }
 
 android {
@@ -46,7 +47,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
-    // dependências da CameraX
+    // Dependências da CameraX
     implementation 'androidx.camera:camera-lifecycle:1.1.0-alpha12'
     implementation 'androidx.camera:camera-view:1.0.0-alpha32'
     implementation 'androidx.camera:camera-extensions:1.0.0-alpha32'
